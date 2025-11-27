@@ -4,7 +4,7 @@
 
 - Node.js (v18+) installé
 - Python (v3.9+) installé
-- ~3GB d'espace disque libre (pour les modèles IA)
+- ~4GB d'espace disque libre (pour les modèles IA)
 
 ## 1. Cloner le Projet
 
@@ -30,20 +30,21 @@ source venv/bin/activate
 
 ### Installer les dépendances
 
-**Important :** L'installation de PyTorch et Transformers peut prendre plusieurs minutes (~2-3GB).
+**Important :** L'installation de PyTorch, Transformers et Ultralytics peut prendre plusieurs minutes (~3-4GB).
 
 ```bash
 # Installer PyTorch (CPU version)
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
 # Installer les autres dépendances
-pip install transformers timm fastapi uvicorn[standard] python-multipart pillow numpy opencv-python python-dotenv aiofiles
+pip install -r requirements.txt
 ```
 
-Ou simplement :
+**Note :** Si vous rencontrez des erreurs avec `numpy` ou `ultralytics`, installez-les avec `--only-binary :all:` :
 
 ```bash
-pip install -r requirements.txt
+pip install numpy --only-binary :all:
+pip install ultralytics --only-binary :all:
 ```
 
 ### Lancer le backend
@@ -54,7 +55,11 @@ uvicorn main:app --reload
 
 Le backend sera accessible sur **http://127.0.0.1:8000**
 
-⚠️ **Au premier lancement**, le modèle Depth Anything (~400MB) sera téléchargé depuis Hugging Face. Cela peut prendre 1-2 minutes.
+⚠️ **Au premier lancement**, les modèles IA seront téléchargés depuis Hugging Face :
+
+- Depth Anything (~400MB) : 1-2 minutes
+- YOLOv8 nano (~6MB) : quelques secondes
+- OWL-ViT (~600MB) : 2-3 minutes
 
 ## 3. Installation du Frontend
 
@@ -75,8 +80,11 @@ Le frontend sera accessible sur **http://localhost:5173**
 
 1. Ouvrez http://localhost:5173 dans votre navigateur
 2. Uploadez une image (drag & drop ou clic)
-3. Cliquez sur "🎯 Analyser la profondeur (3D)"
-4. Admirez la depth map générée ! 🎨
+3. Choisissez une analyse :
+   - **🎯 Analyser la profondeur (3D)** : Génère une depth map et visualisation 3D interactive
+   - **🔍 Détecter les objets (YOLO)** : Détecte les objets génériques (voitures, personnes)
+   - **🧩 Analyser les pièces (Zero-Shot)** : Détecte les pièces spécifiques (roues, pare-chocs, etc.)
+4. Admirez les résultats ! 🎨
 
 ## 5. Structure des Dossiers
 

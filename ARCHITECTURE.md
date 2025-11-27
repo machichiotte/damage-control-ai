@@ -31,11 +31,12 @@ graph TD
 - Utility-first pour un contrôle total
 - Dark mode natif
 
-**TresJS (prévu pour Sprint 4) :**
+**TresJS (✅ Implémenté) :**
 
 - Équivalent de React-Three-Fiber pour Vue
 - Visualisation 3D interactive des depth maps
-- Intégration native avec Vue 3
+- OrbitControls pour rotation/zoom/pan
+- Displacement mapping pour relief 3D
 
 ### 2. Backend : Python FastAPI
 
@@ -52,7 +53,7 @@ graph TD
 - **PIL/Pillow** : Manipulation d'images
 - **NumPy** : Calculs matriciels
 
-### 3. Intelligence Artificielle (Hugging Face)
+### 3. Intelligence Artificielle (Hugging Face + Ultralytics)
 
 **Modèles utilisés :**
 
@@ -64,10 +65,22 @@ graph TD
 - **Performance** : ~2-5 secondes par image (CPU)
 - **Visualisation** : Colormap INFERNO (rouge = proche, bleu = loin)
 
-#### YOLO (Prévu - Sprint 3)
+#### YOLOv8 (✅ Implémenté)
 
-- **Tâche** : Détection d'objets
-- **Usage** : Identifier les pièces de voiture endommagées
+- **Modèle** : `yolov8n.pt` (nano)
+- **Tâche** : Détection d'objets génériques
+- **Usage** : Identifier les objets dans l'image (voitures, personnes, camions)
+- **Performance** : ~1-2 secondes par image (CPU)
+- **Threshold** : 25% de confiance minimum
+
+#### OWL-ViT (✅ Implémenté)
+
+- **Modèle** : `google/owlvit-base-patch32`
+- **Tâche** : Zero-Shot Object Detection
+- **Usage** : Détecter des pièces spécifiques via requêtes textuelles (bumper, door, wheel, etc.)
+- **Performance** : ~5-10 secondes par image (CPU)
+- **Threshold** : 5% de confiance minimum
+- **Avantage** : Pas besoin d'entraînement pour de nouvelles classes
 
 #### TAPAS (Prévu - Sprint 3)
 
@@ -87,8 +100,10 @@ graph TD
 
 ```
 /backend/uploads/
-├── [uuid].jpg              # Image originale
-└── depth_[uuid].jpg        # Depth map générée
+├── [uuid].jpg                  # Image originale
+├── depth_[uuid].jpg            # Depth map générée
+├── detected_[uuid].jpg         # YOLO annotations
+└── parts_[uuid].jpg            # OWL-ViT annotations
 ```
 
 **Migration future :**

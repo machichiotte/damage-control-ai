@@ -9,7 +9,7 @@ DamageControl AI est une Progressive Web App (PWA) révolutionnaire qui automati
 
 ## ✨ Fonctionnalités Actuelles
 
-### ✅ Implémenté (Sprint 1 & 2)
+### ✅ Implémenté
 
 1.  **Upload d'Images Interactif** 📸
 
@@ -18,36 +18,55 @@ DamageControl AI est une Progressive Web App (PWA) révolutionnaire qui automati
     - Interface moderne avec animations
 
 2.  **Depth Estimation (Vision 3D)** 🎯
+
     - Analyse de la gravité des impacts via des cartes de profondeur
     - Modèle IA : Depth Anything (Hugging Face)
     - Visualisation côte à côte (original vs depth map)
     - Statistiques de profondeur (min/max/moyenne)
     - Colormap INFERNO pour meilleure lisibilité
 
-### 🔄 À Venir (Sprint 3 & 4)
-
-3.  **Object Detection** 🔍
-    - Identification précise des pièces endommagées (YOLO)
-    - Bounding boxes sur l'image
-4.  **Analyse de Contrat (NLP)** 📄
-    - Extraction automatique des franchises et garanties depuis des PDF
-    - Table Question Answering avec TAPAS
-5.  **Visualisation 3D Interactive** 🧊
+3.  **Visualisation 3D Interactive** 🧊
 
     - Affichage 3D de la depth map avec TresJS
-    - Rotation et zoom interactifs
+    - Rotation automatique et manuelle (OrbitControls)
+    - Zoom et pan interactifs
+    - Displacement mapping pour relief 3D réel
 
-6.  **Rapport Automatisé** 📊
+4.  **Object Detection (YOLO)** 🔍
+
+    - Détection d'objets génériques (voitures, personnes, camions)
+    - Modèle : YOLOv8 nano
+    - Bounding boxes avec scores de confiance
+    - Statistiques de détection
+
+5.  **Zero-Shot Object Detection (OWL-ViT)** 🧩
+    - Détection de pièces spécifiques sans entraînement
+    - Modèle : OWL-ViT (Google)
+    - Détecte : bumper, door, wheel, tire, headlight, hood, etc.
+    - Requêtes textuelles personnalisables
+
+### 🔄 À Venir (Sprint 3 & 4)
+
+6.  **Analyse de Contrat (NLP)** 📄
+    - Extraction automatique des franchises et garanties depuis des PDF
+    - Table Question Answering avec TAPAS
+7.  **Logique Métier** 🧠
     - Croisement des données visuelles et contractuelles
-    - Estimation immédiate du coût
+    - Estimation immédiate : "Sinistre Couvert : OUI/NON"
+    - Calcul automatique du coût estimé
+8.  **UI/UX Premium** 🎨
+    - Dark mode futuriste avec glassmorphism
+    - Galerie des analyses précédentes
+    - PWA (installable sur mobile)
 
 ## 🛠 Stack Technique
 
-- **Frontend** : Vue.js 3 (Vite) + TailwindCSS + TresJS (à venir)
+- **Frontend** : Vue.js 3 (Vite) + TailwindCSS + TresJS
 - **Backend** : Python (FastAPI)
-- **IA/ML** : Hugging Face Transformers
+- **IA/ML** : Hugging Face Transformers + Ultralytics
   - Depth Anything (depth estimation) ✅
-  - YOLO (object detection) 🔄
+  - YOLOv8 (object detection) ✅
+  - OWL-ViT (zero-shot detection) ✅
   - TAPAS (table QA) 🔄
 - **Stockage** : Local (fichiers) pour le développement
 - **Déploiement** : Prévu sur Vercel (frontend) + Railway (backend)
@@ -59,14 +78,17 @@ DamageControl AI est une Progressive Web App (PWA) révolutionnaire qui automati
 ├── /frontend          # Application Vue.js
 │   ├── /src
 │   │   ├── /components
-│   │   │   └── ImageUploader.vue  # Composant d'upload
+│   │   │   ├── ImageUploader.vue    # Composant d'upload
+│   │   │   └── DepthViewer3D.vue    # Visualisation 3D
 │   │   ├── App.vue
 │   │   └── main.js
 │   └── package.json
 ├── /backend           # API FastAPI
 │   ├── main.py        # Endpoints REST
 │   ├── /services
-│   │   └── depth_estimator.py  # Service IA
+│   │   ├── depth_estimator.py       # Depth Anything
+│   │   ├── object_detector.py       # YOLO
+│   │   └── zero_shot_detector.py    # OWL-ViT
 │   └── requirements.txt
 └── /docs              # Documentation
     ├── ARCHITECTURE.md
@@ -80,7 +102,7 @@ DamageControl AI est une Progressive Web App (PWA) révolutionnaire qui automati
 
 - Node.js 18+
 - Python 3.9+
-- ~3GB d'espace disque (modèles IA)
+- ~4GB d'espace disque (modèles IA)
 
 ### Installation
 
@@ -104,7 +126,11 @@ uvicorn main:app --reload
 
 👉 Backend accessible sur http://127.0.0.1:8000
 
-⚠️ **Note :** Au premier lancement, le modèle Depth Anything (~400MB) sera téléchargé depuis Hugging Face.
+⚠️ **Note :** Au premier lancement, les modèles IA seront téléchargés :
+
+- Depth Anything (~400MB)
+- YOLOv8 nano (~6MB)
+- OWL-ViT (~600MB)
 
 ### Documentation API
 
@@ -118,10 +144,10 @@ _(À venir : Screenshots de l'interface et des depth maps)_
 
 - ✅ **Sprint 1** : Fondations & Infrastructure (100%)
 - ✅ **Sprint 2** : Vision & 3D - Depth Estimation (100%)
-- 🔄 **Sprint 3** : Intelligence Contractuelle (0%)
-- 🔄 **Sprint 4** : UI/UX Premium & Finalisation (0%)
+- 🔄 **Sprint 3** : Intelligence Contractuelle (33%)
+- 🔄 **Sprint 4** : UI/UX Premium & Finalisation (33%)
 
-**Progression totale : 50%**
+**Progression totale : ~67%**
 
 Voir [SPRINTS.md](./SPRINTS.md) pour plus de détails.
 
