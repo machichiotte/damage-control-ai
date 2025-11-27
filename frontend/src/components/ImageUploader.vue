@@ -195,21 +195,33 @@ const reset = () => {
             </div>
           </div>
 
-          <!-- Bouton d'analyse -->
-          <button v-if="!analysisResult" @click="analyzeDepth" :disabled="isAnalyzing"
-            class="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:from-gray-500 disabled:to-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed">
-            <span v-if="!isAnalyzing">🎯 Analyser la profondeur (3D)</span>
-            <span v-else class="flex items-center justify-center gap-2">
-              <span
-                class="inline-block animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
-              Analyse en cours...
-            </span>
-          </button>
+          <!-- Actions -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button v-if="!analysisResult" @click="analyzeDepth" :disabled="isAnalyzing"
+              class="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:from-gray-500 disabled:to-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed">
+              <span v-if="!isAnalyzing">🎯 Analyser la profondeur (3D)</span>
+              <span v-else class="flex items-center justify-center gap-2">
+                <span
+                  class="inline-block animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
+                Analyse en cours...
+              </span>
+            </button>
+
+            <button v-if="!detectionResult" @click="detectObjects" :disabled="isDetecting"
+              class="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 disabled:from-gray-500 disabled:to-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed">
+              <span v-if="!isDetecting">🔍 Détecter les objets (YOLO)</span>
+              <span v-else class="flex items-center justify-center gap-2">
+                <span
+                  class="inline-block animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
+                Détection en cours...
+              </span>
+            </button>
+          </div>
         </div>
 
-        <!-- Résultat de l'analyse -->
+        <!-- Résultat de l'analyse Depth -->
         <div v-if="analysisResult" class="bg-slate-800 rounded-xl p-6 border border-green-500/50">
-          <h3 class="text-xl font-semibold mb-4 text-green-400">✓ Analyse terminée</h3>
+          <h3 class="text-xl font-semibold mb-4 text-green-400">✓ Analyse Profondeur terminée</h3>
 
           <!-- Comparaison côte à côte -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -245,6 +257,37 @@ const reset = () => {
           <div class="mt-6">
             <h4 class="text-lg font-semibold mb-3 text-purple-400">🧊 Visualisation 3D Interactive</h4>
             <DepthViewer3D :depthMapUrl="`${API_URL}${analysisResult.depth_map}`" :originalImageUrl="uploadedImage" />
+          </div>
+        </div>
+
+        <!-- Résultat de la détection d'objets -->
+        <div v-if="detectionResult" class="bg-slate-800 rounded-xl p-6 border border-orange-500/50">
+          <h3 class="text-xl font-semibold mb-4 text-orange-400">✓ Détection d'objets terminée</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <p class="text-sm text-gray-400 mb-2">Image annotée</p>
+              <img :src="`${API_URL}${detectionResult.annotated_image}`" alt="Annotated Image"
+                class="w-full rounded-lg border border-orange-500" />
+            </div>
+            
+            <!-- Liste des objets détectés -->
+            <div class="bg-slate-900/50 rounded-lg p-4">
+              <h4 class="text-sm font-semibold text-gray-300 mb-3">Objets détectés ({{ detectionResult.stats.total_objects }})</h4>
+              
+              <div class="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                <div v-for="(obj, index) in detectionResult.detections" :key="index" 
+                  class="flex justify-between items-center bg-slate-800 p-2 rounded border border-slate-700">
+                  <span class="capitalize text-white">{{ obj.class }}</span>
+                  <span class="text-xs font-mono text-orange-400">{{ (obj.confidence * 100).toFixed(1) }}%</span>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-4 border-t border-slate-700 text-xs text-gray-400">
+                <p>Classes trouvées : {{ detectionResult.stats.classes_detected.join(', ') }}</p>
+                <p class="mt-1">Confiance moyenne : {{ (detectionResult.stats.avg_confidence * 100).toFixed(1) }}%</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -72,9 +72,9 @@ Ce document détaille la roadmap pour passer de l'idée au MVP (Minimum Viable P
 ### Tâches :
 
 1.  **Service IA - Object Detection (YOLO) :**
-    - [ ] Intégrer YOLO pour détecter les objets/pièces dans l'image
-    - [ ] Identifier les pièces de voiture (pare-chocs, portière, etc.))
-    - [ ] Afficher les bounding boxes sur l'image
+    - [x] Intégrer YOLO pour détecter les objets/pièces dans l'image
+    - [ ] Identifier les pièces de voiture (pare-chocs, portière, etc.)
+    - [x] Afficher les bounding boxes sur l'image
 2.  **Service IA - Table QA (TAPAS) :**
     - [ ] Créer un endpoint pour uploader un PDF/Image de contrat
     - [ ] Implémenter l'extraction de données (Franchise, Plafond) via TAPAS ou LayoutLM
