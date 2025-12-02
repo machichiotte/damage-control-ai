@@ -8,15 +8,14 @@ const activeTab = ref('image')
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center p-8">
-    <!-- Header -->
+  <div class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
     <div class="text-center mb-12">
       <h1
-        class="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 mb-4 animate-gradient"
+        class="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 mb-4 animate-gradient"
         style="padding-bottom: 1rem;">
         DamageControl AI
       </h1>
-      <p class="text-xl text-gray-400">L'Expert en Sinistres Automatisé</p>
+      <p class="text-lg sm:text-xl text-gray-400 px-4">L'Expert en Sinistres Automatisé</p>
       <div class="flex gap-4 justify-center mt-4 text-sm text-gray-500">
         <span class="flex items-center gap-2">
           <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -26,9 +25,9 @@ const activeTab = ref('image')
     </div>
 
     <!-- Tabs -->
-    <div class="flex gap-4 mb-8">
+    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 w-full max-w-2xl px-4">
       <button @click="activeTab = 'image'" :class="[
-        'px-6 py-3 rounded-xl font-semibold transition-all',
+        'px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base',
         activeTab === 'image'
           ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
           : 'bg-slate-800/50 text-gray-400 hover:bg-slate-700/50'
@@ -36,7 +35,7 @@ const activeTab = ref('image')
         📸 Analyser une photo
       </button>
       <button @click="activeTab = 'contract'" :class="[
-        'px-6 py-3 rounded-xl font-semibold transition-all',
+        'px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base',
         activeTab === 'contract'
           ? 'bg-gradient-to-r from-purple-500 to-emerald-500 text-white shadow-lg'
           : 'bg-slate-800/50 text-gray-400 hover:bg-slate-700/50'
@@ -44,7 +43,7 @@ const activeTab = ref('image')
         📄 Analyser un contrat
       </button>
       <button @click="activeTab = 'evaluate'" :class="[
-        'px-6 py-3 rounded-xl font-semibold transition-all',
+        'px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base',
         activeTab === 'evaluate'
           ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg'
           : 'bg-slate-800/50 text-gray-400 hover:bg-slate-700/50'
