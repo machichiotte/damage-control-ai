@@ -63,12 +63,15 @@ DamageControl AI est une Progressive Web App (PWA) révolutionnaire qui automati
     - Calcul du remboursement (coût estimé - franchise)
     - Interface complète avec détails financiers et dégâts détectés
 
-### 🔄 À Venir (Sprint 4)
+### 🔄 En Cours (Sprint 4 - 50%)
 
 8.  **UI/UX Premium** 🎨
-    - Galerie des analyses précédentes
-    - PWA (installable sur mobile)
-    - Optimisations performances
+    - [x] Design Dark Mode futuriste avec Glassmorphism
+    - [x] Animations de chargement pendant le traitement IA
+    - [x] Système d'onglets pour navigation (Image / Contrat)
+    - [ ] Galerie des analyses précédentes
+    - [ ] PWA (installable sur mobile)
+    - [ ] Optimisations performances
 
 ## 🛠 Stack Technique
 
@@ -155,10 +158,10 @@ _(À venir : Screenshots de l'interface et des depth maps)_
 
 - ✅ **Sprint 1** : Fondations & Infrastructure (100%)
 - ✅ **Sprint 2** : Vision & 3D - Depth Estimation (100%)
-- 🔄 **Sprint 3** : Intelligence Contractuelle (33%)
-- 🔄 **Sprint 4** : UI/UX Premium & Finalisation (33%)
+- ✅ **Sprint 3** : Intelligence Contractuelle (100%)
+- 🔄 **Sprint 4** : UI/UX Premium & Finalisation (50%)
 
-**Progression totale : ~67%**
+**Progression totale : ~88%**
 
 Voir [SPRINTS.md](./SPRINTS.md) pour plus de détails.
 

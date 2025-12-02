@@ -7,7 +7,7 @@ Ce document détaille la roadmap pour passer de l'idée au MVP (Minimum Viable P
 - **Sprint 1 : Fondations & Infrastructure** ✅ **TERMINÉ**
 - **Sprint 2 : Vision & 3D** ✅ **TERMINÉ**
 - **Sprint 3 : Intelligence Contractuelle & Backend** ✅ **TERMINÉ**
-- **Sprint 4 : UI/UX Premium & Finalisation** 🔄 **PARTIEL (33%)**
+- **Sprint 4 : UI/UX Premium & Finalisation** 🔄 **PARTIEL (50%)**
 
 ---
 

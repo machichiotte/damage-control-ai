@@ -3,9 +3,7 @@ Service d'évaluation de sinistre
 Croise les données visuelles (dégâts) et contractuelles (garanties) pour décider de la couverture
 """
 
-from typing import Dict, List, Optional
-import json
-from pathlib import Path
+from typing import Dict, List
 
 
 class ClaimEvaluator:

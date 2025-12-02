@@ -42,7 +42,7 @@
         <!-- Résultats de l'analyse -->
         <div v-if="analysisResult" class="analysis-results">
             <h3>✅ Analyse terminée</h3>
-            
+
             <!-- Nom du fichier -->
             <div class="filename-card">
                 <span class="icon">📄</span>
@@ -265,6 +265,7 @@ h2 {
     margin-bottom: 2rem;
     text-align: center;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -527,6 +528,7 @@ h2 {
     font-size: 2rem;
     font-weight: 700;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.25rem;

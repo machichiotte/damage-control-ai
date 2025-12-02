@@ -79,12 +79,21 @@ Le frontend sera accessible sur **http://localhost:5173**
 ## 4. Utilisation
 
 1. Ouvrez http://localhost:5173 dans votre navigateur
-2. Uploadez une image (drag & drop ou clic)
-3. Choisissez une analyse :
-   - **🎯 Analyser la profondeur (3D)** : Génère une depth map et visualisation 3D interactive
-   - **🔍 Détecter les objets (YOLO)** : Détecte les objets génériques (voitures, personnes)
-   - **🧩 Analyser les pièces (Zero-Shot)** : Détecte les pièces spécifiques (roues, pare-chocs, etc.)
-4. Admirez les résultats ! 🎨
+2. **Onglet "Analyse d'Image"** :
+   - Uploadez une image (drag & drop ou clic)
+   - Choisissez une analyse :
+     - **🎯 Analyser la profondeur (3D)** : Génère une depth map et visualisation 3D interactive
+     - **🔍 Détecter les objets (YOLO)** : Détecte les objets génériques (voitures, personnes)
+     - **🧩 Analyser les pièces (Zero-Shot)** : Détecte les pièces spécifiques (roues, pare-chocs, etc.)
+3. **Onglet "Analyse de Contrat"** :
+   - Uploadez un contrat d'assurance (PDF ou image)
+   - Cliquez sur "Analyser le contrat"
+   - Consultez les garanties, franchise et plafond extraits
+4. **Onglet "Évaluation de Sinistre"** :
+   - Sélectionnez une image analysée et un contrat
+   - Cliquez sur "Évaluer le sinistre"
+   - Obtenez la décision automatique (couvert/non couvert), le coût estimé et le remboursement
+5. Admirez les résultats ! 🎨
 
 ## 5. Structure des Dossiers
 
@@ -114,6 +123,11 @@ Endpoints disponibles :
 - `GET /health` - Vérification de santé
 - `POST /upload` - Upload d'une image
 - `POST /analyze/{filename}` - Analyse de profondeur 3D
+- `POST /detect/objects/{filename}` - Détection d'objets (YOLO)
+- `POST /detect/parts/{filename}` - Détection de pièces (OWL-ViT)
+- `POST /upload/contract` - Upload d'un contrat
+- `POST /analyze/contract/{filename}` - Analyse de contrat
+- `POST /evaluate/claim` - Évaluation complète de sinistre
 - `GET /files/{filename}` - Récupération des fichiers
 
 ## 🐛 Dépannage

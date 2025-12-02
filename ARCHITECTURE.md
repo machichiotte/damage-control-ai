@@ -82,11 +82,13 @@ graph TD
 - **Threshold** : 5% de confiance minimum
 - **Avantage** : Pas besoin d'entraînement pour de nouvelles classes
 
-#### TAPAS (Prévu - Sprint 3)
+#### Analyse de Contrats (✅ Implémenté - Alternative à TAPAS)
 
-- **Modèle** : `google/tapas-base-finetuned-wtq`
-- **Tâche** : Question-Answering sur tableaux
-- **Usage** : Extraire franchises et garanties depuis des contrats PDF
+- **Approche** : PyPDF2 + Tesseract OCR + Regex
+- **Tâche** : Extraction de texte et analyse de contrats
+- **Usage** : Extraire franchises, plafonds et garanties depuis des contrats PDF/Images
+- **Performance** : ~2-5 secondes par document
+- **Avantage** : Plus simple et plus rapide que TAPAS pour ce cas d'usage
 
 ### 4. Stockage : Système de Fichiers Local
 
@@ -103,7 +105,9 @@ graph TD
 ├── [uuid].jpg                  # Image originale
 ├── depth_[uuid].jpg            # Depth map générée
 ├── detected_[uuid].jpg         # YOLO annotations
-└── parts_[uuid].jpg            # OWL-ViT annotations
+├── parts_[uuid].jpg            # OWL-ViT annotations
+└── /contracts/
+    └── [uuid].pdf              # Contrats uploadés
 ```
 
 **Migration future :**
@@ -141,6 +145,85 @@ User → Frontend → POST /analyze/{filename} → Backend
                                          Frontend
                                               ↓
                                     Display Side-by-Side
+```
+
+### 3. Détection d'Objets (YOLO + OWL-ViT)
+
+```
+User → Frontend → POST /detect/objects/{filename} → Backend
+                                                      ↓
+                                                 Load Image
+                                                      ↓
+                                                 YOLOv8 Model
+                                                      ↓
+                                                 Detect Objects
+                                                      ↓
+                                                 Draw Bounding Boxes
+                                                      ↓
+                                                 Save Annotated Image
+                                                      ↓
+                                                 Response (detections, url)
+
+User → Frontend → POST /detect/parts/{filename} → Backend
+                                                    ↓
+                                               Load Image
+                                                    ↓
+                                               OWL-ViT Model
+                                                    ↓
+                                               Zero-Shot Detection
+                                                    ↓
+                                               Draw Bounding Boxes
+                                                    ↓
+                                               Save Annotated Image
+                                                    ↓
+                                               Response (parts, url)
+```
+
+### 4. Analyse de Contrat
+
+```
+User → Frontend → POST /upload/contract → Backend
+                                            ↓
+                                       Save PDF/Image
+                                            ↓
+                                       Response (filename)
+                                            ↓
+User → Frontend → POST /analyze/contract/{filename} → Backend
+                                                        ↓
+                                                   Load Document
+                                                        ↓
+                                                   Extract Text
+                                                   (PyPDF2 + Tesseract)
+                                                        ↓
+                                                   Regex Analysis
+                                                        ↓
+                                                   Extract Guarantees
+                                                        ↓
+                                                   Response (franchise, plafond, garanties)
+```
+
+### 5. Évaluation de Sinistre (Logique Métier)
+
+```
+User → Frontend → POST /evaluate/claim → Backend
+                                           ↓
+                                      ClaimEvaluator
+                                           ↓
+                                      Load Image
+                                           ↓
+                                      Zero-Shot Detection (parts)
+                                           ↓
+                                      Load Contract
+                                           ↓
+                                      Extract Contract Data
+                                           ↓
+                                      Calculate Estimated Cost
+                                           ↓
+                                      Check Coverage
+                                           ↓
+                                      Calculate Reimbursement
+                                           ↓
+                                      Response (decision, cost, reimbursement, damages)
 ```
 
 ## 🔒 Sécurité & Limitations
@@ -201,3 +284,7 @@ User → Frontend → POST /analyze/{filename} → Backend
 - Queue de traitement (Celery/RabbitMQ)
 - Load balancing
 - CDN pour les images
+
+```
+
+```
