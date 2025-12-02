@@ -1,10 +1,48 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import ImageUploader from './components/ImageUploader.vue'
 import ContractUploader from './components/ContractUploader.vue'
 import ClaimEvaluator from './components/ClaimEvaluator.vue'
+import { API_URL } from './config.js'
 
 const activeTab = ref('image')
+const backendStatus = ref('checking') // 'checking', 'connected', 'disconnected'
+let healthCheckInterval = null
+
+// Vérifier la santé du backend
+const checkBackendHealth = async () => {
+  try {
+    const response = await fetch(`${API_URL}/health`, {
+      method: 'GET',
+      signal: AbortSignal.timeout(5000) // Timeout de 5 secondes
+    })
+
+    if (response.ok) {
+      backendStatus.value = 'connected'
+    } else {
+      backendStatus.value = 'disconnected'
+    }
+  } catch (error) {
+    console.error('Backend health check failed:', error)
+    backendStatus.value = 'disconnected'
+  }
+}
+
+// Au montage du composant
+onMounted(() => {
+  // Vérifier immédiatement
+  checkBackendHealth()
+
+  // Puis vérifier toutes les 30 secondes
+  healthCheckInterval = setInterval(checkBackendHealth, 30000)
+})
+
+// Nettoyer l'interval au démontage
+onUnmounted(() => {
+  if (healthCheckInterval) {
+    clearInterval(healthCheckInterval)
+  }
+})
 </script>
 
 <template>
@@ -16,10 +54,18 @@ const activeTab = ref('image')
         DamageControl AI
       </h1>
       <p class="text-lg sm:text-xl text-gray-400 px-4">L'Expert en Sinistres Automatisé</p>
-      <div class="flex gap-4 justify-center mt-4 text-sm text-gray-500">
-        <span class="flex items-center gap-2">
+      <div class="flex gap-4 justify-center mt-4 text-sm">
+        <span v-if="backendStatus === 'checking'" class="flex items-center gap-2 text-gray-500">
+          <span class="w-2 h-2 bg-gray-500 rounded-full animate-pulse"></span>
+          Vérification du backend...
+        </span>
+        <span v-else-if="backendStatus === 'connected'" class="flex items-center gap-2 text-green-400">
           <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
           Backend connecté
+        </span>
+        <span v-else class="flex items-center gap-2 text-red-400">
+          <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+          Backend déconnecté
         </span>
       </div>
     </div>
