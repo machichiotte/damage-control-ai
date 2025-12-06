@@ -6,70 +6,57 @@
 
 ## 🌐 Live Demo
 
-🚀 **Application**: [https://damage-control-ai.netlify.app](https://damage-control-ai.netlify.app)  
+🚀 **Application**: [https://damage-control-ai.netlify.app](https://damage-control-ai.netlify.app)
+
 📚 **API Documentation**: [https://machichiotte-damage-control-ai-backend.hf.space/docs](https://machichiotte-damage-control-ai-backend.hf.space/docs)
 
 > 💡 **Infrastructure**: Frontend hosted on Netlify, Backend on Hugging Face Spaces (16 GB RAM).
 
 ## 🎯 Overview
 
-DamageControl AI is a Progressive Web App that automates automotive damage assessment. Using artificial intelligence for image analysis (3D depth, object detection) and document processing (contract analysis), the application streamlines the claims declaration process.
+## 📸 Features in Action
 
-## ✨ Current Features
+### 1. Interactive Dashboard
+
+The application welcomes you with a modern, dark-themed interface designed for efficiency.
+![Dashboard](assets/dashboard.png)
+
+### 2. Smart Upload & Analysis
+
+Upload photos easily via drag & drop. The system instantly validates the image and proposes relevant AI analyses.
+![Upload Analysis](assets/upload_success.png)
+
+### 3. Object Detection (YOLO)
+
+Identify general objects (vehicles, people) in the scene to understand the context of the accident.
+![YOLO Detection](assets/yolo_detection.png)
+
+### 4. Part Claims Inspection (Zero-Shot)
+
+Precisely detect car parts (wheels, bumpers, doors) to assess specific damages using OWL-ViT technology.
+![Parts Analysis](assets/owl_detection.png)
+
+### 5. Depth Estimation (3D)
+
+Analyze the severity of impacts using 3D depth maps (not shown above, but available in the app).
+![Depth Estimation](assets/depth_estimation.png)
+
+### 6. Interactive 3D Visualization
+
+Explore the scene in 3D with interactive controls.
+![3D Visualization](assets/3d_visualization.png)
+
+## ✨ Core Capabilities
 
 ### ✅ Implemented
 
-1. **Interactive Image Upload** 📸
-
-   - Drag & drop or file selection
-   - Instant preview
-   - Animated interface with transitions
-
-2. **Depth Estimation (3D Vision)** 🎯
-
-   - Impact severity analysis via depth maps
-   - AI Model: Depth Anything (Hugging Face)
-   - Side-by-side visualization (original vs depth map)
-   - Depth statistics (min/max/average)
-   - INFERNO colormap for better readability
-
-3. **Interactive 3D Visualization** 🧊
-
-   - 3D depth map display with TresJS
-   - Automatic and manual rotation (OrbitControls)
-   - Interactive zoom and pan
-   - Displacement mapping for real 3D relief
-
-4. **Object Detection (YOLO)** 🔍
-
-   - Generic object detection (cars, people, trucks)
-   - Model: YOLOv8 nano
-   - Bounding boxes with confidence scores
-   - Detection statistics
-
-5. **Zero-Shot Object Detection (OWL-ViT)** 🧩
-
-   - Specific part detection without training
-   - Model: OWL-ViT (Google)
-   - Detects: bumper, door, wheel, tire, headlight, hood, etc.
-   - Customizable text queries
-
-6. **Contract Analysis (NLP)** 📄
-
-   - Insurance contract upload (PDF/Images)
-   - Automatic text extraction (PyPDF2 + Tesseract OCR)
-   - Regex analysis to detect:
-     - Deductibles
-     - Coverage limits
-     - Coverage types (Theft, Fire, Glass breakage, etc.)
-   - Dedicated interface with results visualization
-
-7. **Business Logic (Claim Evaluation)** 🧠
-   - `ClaimEvaluator` service to cross-reference visual and contractual analysis
-   - Automatic cost estimation based on detected parts
-   - Automatic decision: "Claim Covered: YES/NO"
-   - Reimbursement calculation (estimated cost - deductible)
-   - Complete interface with financial details and detected damages
+1. **Interactive Image Upload** - Drag & drop, instant preview.
+2. **Depth Estimation** - 3D depth maps with INFERNO colormap.
+3. **Interactive 3D Visualization** - 3D rendering with TresJS.
+4. **Object Detection** - YOLOv8 nano for real-time detection.
+5. **Zero-Shot Detection** - OWL-ViT for specific part identification.
+6. **Contract Analysis** - PDF/Image upload and Regex extraction.
+7. **Claim Evaluation** - Automated decision making based on visual and contractual data.
 
 ### 🔄 In Progress (Sprint 4 - 50%)
 
